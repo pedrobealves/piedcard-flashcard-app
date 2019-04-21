@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -14,10 +13,12 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.piedcard.R;
+import com.piedcard.activity.deck.DeckActivity;
+import com.piedcard.activity.deck.InsertDeckActivity;
+import com.piedcard.activity.settings.SettingsActivity;
 import com.piedcard.adapter.DeckAdapter;
 import com.piedcard.model.Deck;
 import com.piedcard.util.RecyclerItemClickListener;
@@ -52,11 +53,11 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onItemClick(View view, int position) {
 
-                                //Recuperar DECK para edicao
+
                                 Deck deckSelected = deckList.get( position );
 
                                 //Envia DECK para tela adicionar tarefa
-                                Intent intent = new Intent(MainActivity.this, InsertDeckActivity.class);
+                                Intent intent = new Intent(MainActivity.this, DeckActivity.class);
                                 intent.putExtra("deckSelected", deckSelected);
 
                                 startActivity( intent );
@@ -139,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager( getApplicationContext() );
         recyclerView.setLayoutManager( layoutManager );
         recyclerView.setHasFixedSize(true);
-        recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), LinearLayout.VERTICAL));
+        //recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), LinearLayout.VERTICAL));
         recyclerView.setAdapter(deckAdapter);
 
     }
@@ -166,7 +167,8 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+            startActivity( intent );
         }
 
         return super.onOptionsItemSelected(item);

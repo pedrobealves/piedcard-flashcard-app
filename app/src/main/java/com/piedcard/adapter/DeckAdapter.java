@@ -24,7 +24,7 @@ public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.MyViewHolder> 
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View itemLista = LayoutInflater.from(parent.getContext())
-                                        .inflate(R.layout.lista_tarefa_adapter, parent, false);
+                                        .inflate(R.layout.deck_list_detail, parent, false);
 
         return new MyViewHolder(itemLista);
     }

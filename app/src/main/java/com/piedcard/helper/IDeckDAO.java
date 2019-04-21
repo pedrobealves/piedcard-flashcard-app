@@ -9,6 +9,7 @@ public interface IDeckDAO {
     public boolean insert(Deck deck);
     public boolean update(Deck deck);
     public boolean delete(Deck deck);
+    public Deck read(Deck deck);
     public List<Deck> list();
 
 }

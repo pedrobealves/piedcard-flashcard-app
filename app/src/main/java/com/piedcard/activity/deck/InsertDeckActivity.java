@@ -1,4 +1,4 @@
-package com.piedcard.activity;
+package com.piedcard.activity.deck;
 
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
