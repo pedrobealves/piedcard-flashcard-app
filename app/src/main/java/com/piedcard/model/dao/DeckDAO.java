@@ -1,4 +1,4 @@
-package com.piedcard.helper;
+package com.piedcard.model.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,20 +6,22 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.piedcard.helper.DbHelper;
 import com.piedcard.model.Deck;
+import com.piedcard.model.dao.interfaces.IDeckDAO;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DeckDAO implements IDeckDAO {
 
-    private SQLiteDatabase escreve;
-    private SQLiteDatabase le;
+    private SQLiteDatabase wt;
+    private SQLiteDatabase rd;
 
     public DeckDAO(Context context) {
         DbHelper db = new DbHelper( context );
-        escreve = db.getWritableDatabase();
-        le = db.getReadableDatabase();
+        wt = db.getWritableDatabase();
+        rd = db.getReadableDatabase();
     }
 
     @Override
@@ -29,7 +31,7 @@ public class DeckDAO implements IDeckDAO {
         cv.put("name", deck.getName() );
 
         try {
-            escreve.insert(DbHelper.TABLE_DECK, null, cv );
+            wt.insert(DbHelper.TABLE_DECK, null, cv );
             Log.i("INFO", "Deck salva com sucesso!");
         }catch (Exception e){
             Log.e("INFO", "Erro ao insert deck " + e.getMessage() );
@@ -47,7 +49,7 @@ public class DeckDAO implements IDeckDAO {
 
         try {
             String[] args = {deck.getId().toString()};
-            escreve.update(DbHelper.TABLE_DECK, cv, "id=?", args );
+            wt.update(DbHelper.TABLE_DECK, cv, "id=?", args );
             Log.i("INFO", "Deck atualizada com sucesso!");
         }catch (Exception e){
             Log.e("INFO", "Erro ao atualizada deck " + e.getMessage() );
@@ -62,7 +64,7 @@ public class DeckDAO implements IDeckDAO {
 
         try {
             String[] args = { deck.getId().toString() };
-            escreve.delete(DbHelper.TABLE_DECK, "id=?", args );
+            wt.delete(DbHelper.TABLE_DECK, "id=?", args );
             Log.i("INFO", "Deck removida com sucesso!");
         }catch (Exception e){
             Log.e("INFO", "Erro ao remover deck " + e.getMessage() );
@@ -73,25 +75,24 @@ public class DeckDAO implements IDeckDAO {
     }
 
     @Override
-    public Deck read(Deck deck) {
+    public Deck read(long id) {
 
-        Deck d = new Deck();
-
-        String sql = "SELECT * FROM " + DbHelper.TABLE_DECK + " WHERE id=" + deck.getId().toString() + " ;";
-        Cursor c = le.rawQuery(sql, null);
+        String sql = "SELECT * FROM " + DbHelper.TABLE_DECK + " WHERE id=? ;";
+        Cursor c = rd.rawQuery(sql,  new String[]{Long.toString(id)});
 
         if ( c.moveToNext() ){
 
             Long id_deck = c.getLong( c.getColumnIndex("id") );
             String deckName = c.getString( c.getColumnIndex("name") );
 
-            d.setId( id_deck );
-            d.setName( deckName );
+            Deck d = new Deck(id_deck, deckName );
 
             Log.i("tarefaDao", d.getName() );
+
+            return d;
         }
 
-        return d;
+        return null;
     }
 
     @Override
@@ -100,17 +101,15 @@ public class DeckDAO implements IDeckDAO {
         List<Deck> decks = new ArrayList<>();
 
         String sql = "SELECT * FROM " + DbHelper.TABLE_DECK + " ;";
-        Cursor c = le.rawQuery(sql, null);
+        Cursor c = rd.rawQuery(sql, null);
 
         while ( c.moveToNext() ){
 
-            Deck deck = new Deck();
 
             Long id = c.getLong( c.getColumnIndex("id") );
             String deckName = c.getString( c.getColumnIndex("name") );
 
-            deck.setId( id );
-            deck.setName( deckName );
+            Deck deck = new Deck(id, deckName);
 
             decks.add(deck);
             Log.i("tarefaDao", deck.getName() );

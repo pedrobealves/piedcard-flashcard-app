@@ -22,7 +22,7 @@ import com.piedcard.activity.settings.SettingsActivity;
 import com.piedcard.adapter.DeckAdapter;
 import com.piedcard.model.Deck;
 import com.piedcard.util.RecyclerItemClickListener;
-import com.piedcard.helper.DeckDAO;
+import com.piedcard.model.dao.DeckDAO;
 
 import java.util.ArrayList;
 import java.util.List;

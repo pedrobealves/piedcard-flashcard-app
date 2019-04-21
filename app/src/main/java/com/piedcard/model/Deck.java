@@ -8,6 +8,15 @@ public class Deck implements Serializable {
     private String name;
     private String description;
 
+    public Deck(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public Deck(String name) {
+        this.name = name;
+    }
+
     public Long getId() {
         return id;
     }

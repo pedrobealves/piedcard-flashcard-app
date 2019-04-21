@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.deck.DeckActivityFragment"
-    tools:showIn="@layout/activity_deck">
+    tools:context=".activity.card.CardActivity">
 
 </android.support.constraint.ConstraintLayout>

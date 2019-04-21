@@ -10,6 +10,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public static int VERSION = 1;
     public static String DB_NAME = "DB_PIED_CARDS";
     public static String TABLE_DECK = "deck";
+    public static String TABLE_CARD= "card";
 
     public DbHelper(Context context) {
         super(context, DB_NAME, null, VERSION);
@@ -18,12 +19,19 @@ public class DbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        String sql = "CREATE TABLE IF NOT EXISTS " + TABLE_DECK
+        String sql_deck = "CREATE TABLE IF NOT EXISTS " + TABLE_DECK
                 + " (id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 " name TEXT NOT NULL ); ";
 
+        String sql_card = "CREATE TABLE IF NOT EXISTS " + TABLE_CARD
+                + " (id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                " front TEXT NOT NULL," +
+                " back TEXT NOT NULL," +
+                " id_deck INTEGER NOT NULL," +
+                " fOREIGN KEY (id_deck) REFERENCES deck(id) ); ";
         try {
-            db.execSQL( sql );
+            db.execSQL( sql_deck );
+            db.execSQL( sql_card );
             Log.i("INFO DB", "Sucesso ao criar a tabela" );
         }catch (Exception e){
             Log.i("INFO DB", "Erro ao criar a tabela" + e.getMessage() );
