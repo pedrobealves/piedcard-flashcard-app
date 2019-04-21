@@ -8,7 +8,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.piedcard.R;
-import com.piedcard.helper.DeckDAO;
+import com.piedcard.model.dao.DeckDAO;
 import com.piedcard.model.Deck;
 
 public class InsertDeckActivity extends AppCompatActivity {
@@ -53,9 +53,7 @@ public class InsertDeckActivity extends AppCompatActivity {
                     String nomeTarefa = editDeck.getText().toString();
                     if ( !nomeTarefa.isEmpty() ){
 
-                        Deck deck = new Deck();
-                        deck.setName( nomeTarefa );
-                        deck.setId( deckActual.getId() );
+                        Deck deck = new Deck(deckActual.getId(), nomeTarefa);
 
                         //update no banco de dados
                         if ( deckDAO.update(deck) ){
@@ -75,8 +73,7 @@ public class InsertDeckActivity extends AppCompatActivity {
 
                     String nomeTarefa = editDeck.getText().toString();
                     if ( !nomeTarefa.isEmpty() ){
-                        Deck deck = new Deck();
-                        deck.setName( nomeTarefa );
+                        Deck deck = new Deck(nomeTarefa);
 
                         if ( deckDAO.insert(deck) ){
                             finish();
