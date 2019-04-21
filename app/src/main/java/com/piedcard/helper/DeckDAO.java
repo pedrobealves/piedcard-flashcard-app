@@ -73,6 +73,28 @@ public class DeckDAO implements IDeckDAO {
     }
 
     @Override
+    public Deck read(Deck deck) {
+
+        Deck d = new Deck();
+
+        String sql = "SELECT * FROM " + DbHelper.TABLE_DECK + " WHERE id=" + deck.getId().toString() + " ;";
+        Cursor c = le.rawQuery(sql, null);
+
+        if ( c.moveToNext() ){
+
+            Long id_deck = c.getLong( c.getColumnIndex("id") );
+            String deckName = c.getString( c.getColumnIndex("name") );
+
+            d.setId( id_deck );
+            d.setName( deckName );
+
+            Log.i("tarefaDao", d.getName() );
+        }
+
+        return d;
+    }
+
+    @Override
     public List<Deck> list() {
 
         List<Deck> decks = new ArrayList<>();
