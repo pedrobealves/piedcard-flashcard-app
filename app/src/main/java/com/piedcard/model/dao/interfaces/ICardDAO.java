@@ -9,5 +9,6 @@ public interface ICardDAO {
     boolean update(Card card);
     boolean delete(Card card);
     Card read(long id);
+    int count(long id);
     List<Card> list(long id);
 }

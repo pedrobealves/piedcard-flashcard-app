@@ -130,4 +130,11 @@ public class CardDAO implements ICardDAO {
 
         return cards;
     }
+
+    public int count(long id_deck){
+        String sql = "SELECT count(id) FROM " + DbHelper.TABLE_CARD + " WHERE id_deck=? ;";
+        Cursor c = rd.rawQuery(sql, new String[]{Long.toString(id_deck)});
+        c.moveToFirst();
+        return c.getInt(0);
+    }
 }

@@ -7,7 +7,7 @@ import android.util.Log;
 
 public class DbHelper extends SQLiteOpenHelper {
 
-    public static int VERSION = 1;
+    public static int VERSION = 2;
     public static String DB_NAME = "DB_PIED_CARDS";
     public static String TABLE_DECK = "deck";
     public static String TABLE_CARD= "card";
@@ -25,10 +25,10 @@ public class DbHelper extends SQLiteOpenHelper {
 
         String sql_card = "CREATE TABLE IF NOT EXISTS " + TABLE_CARD
                 + " (id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                " front TEXT NOT NULL," +
-                " back TEXT NOT NULL," +
-                " id_deck INTEGER NOT NULL," +
-                " fOREIGN KEY (id_deck) REFERENCES deck(id) ); ";
+                " front TEXT NOT NULL, " +
+                " back TEXT NOT NULL, " +
+                " id_deck INTEGER NOT NULL, " +
+                " FOREIGN KEY (id_deck) REFERENCES deck(id) ); ";
         try {
             db.execSQL( sql_deck );
             db.execSQL( sql_card );
@@ -43,9 +43,11 @@ public class DbHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
         String sql = "DROP TABLE IF EXISTS " + TABLE_DECK + " ;" ;
+        String sql2 = "DROP TABLE IF EXISTS " + TABLE_CARD + " ;" ;
 
         try {
             db.execSQL( sql );
+            db.execSQL( sql2 );
             onCreate(db);
             Log.i("INFO DB", "Sucesso ao update App" );
         }catch (Exception e){

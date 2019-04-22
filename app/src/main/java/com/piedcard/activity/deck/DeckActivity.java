@@ -12,12 +12,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.piedcard.R;
+import com.piedcard.model.dao.CardDAO;
 import com.piedcard.model.dao.DeckDAO;
 import com.piedcard.model.Deck;
 
 public class DeckActivity extends AppCompatActivity {
 
     private TextView title;
+    private TextView countCards;
     private Deck deckActual;
 
     @Override
@@ -28,6 +30,7 @@ public class DeckActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         title = findViewById(R.id.title_deck);
+        countCards = findViewById(R.id.count_cards);
 
         deckActual = (Deck) getIntent().getSerializableExtra("deckSelected");
 
@@ -36,8 +39,10 @@ public class DeckActivity extends AppCompatActivity {
     public void loadDeck() {
         if ( deckActual != null ){
             DeckDAO deckDAO = new DeckDAO( getApplicationContext() );
+            CardDAO cardDAO = new CardDAO( getApplicationContext() );
             deckActual = deckDAO.read(deckActual.getId());
             title.setText( deckActual.getName() );
+            countCards.setText(String.valueOf(cardDAO.count(deckActual.getId())) + " " + getString(R.string.cards));
         }
     }
 
