@@ -1,5 +1,6 @@
 package com.piedcard.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,15 +10,23 @@ import android.widget.TextView;
 
 import com.piedcard.R;
 import com.piedcard.model.Deck;
+import com.piedcard.model.dao.CardDAO;
 
 import java.util.List;
 
 public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.MyViewHolder> {
 
     private List<Deck> listaDecks;
+    private Context context;
 
-    public DeckAdapter(List<Deck> lista ) {
+    public DeckAdapter(List<Deck> lista) {
         this.listaDecks = lista;
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        context = recyclerView.getContext();
     }
 
     @Override
@@ -33,7 +42,9 @@ public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.MyViewHolder> 
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
         Deck deck = listaDecks.get(position);
+        int count = new CardDAO(context).count(deck.getId());
         holder.tarefa.setText( deck.getName() );
+        holder.countCards.setText(String.valueOf(count) + " " + context.getString(R.string.cards));
         Log.i("tarefaAdapter", deck.getName() );
 
     }
@@ -46,12 +57,13 @@ public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.MyViewHolder> 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView tarefa;
+        TextView countCards;
 
         public MyViewHolder(View itemView) {
             super(itemView);
 
             tarefa = itemView.findViewById(R.id.textTarefa);
-
+            countCards = itemView.findViewById(R.id.sub_text);
         }
     }
 

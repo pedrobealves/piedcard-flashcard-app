@@ -5,6 +5,7 @@
     <string name="name_list">TÍTULO</string>
     <string name="title_deck">TITULO</string>
     <string name="title_activity_settings">SettingsActivity</string>
+    <string name="cards">cartas</string>
 
     <!-- Strings related to Settings -->
 
@@ -80,4 +81,6 @@
     <string name="title_activity_deck">DeckActivity</string>
     <string name="edit_deck">Editar</string>
     <string name="delete_deck">Deletar</string>
+    <string name="study">ESTUDAR</string>
+    <string name="write">ESCREVER</string>
 </resources>
