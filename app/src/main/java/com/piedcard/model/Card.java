@@ -7,6 +7,22 @@ public class Card {
     private String back;
     private Long id_deck;
 
+    public Card() {
+    }
+
+    public Card(Long id, String front, String back, Long id_deck) {
+        this.id = id;
+        this.front = front;
+        this.back = back;
+        this.id_deck = id_deck;
+    }
+
+    public Card(String front, String back, Long id_deck) {
+        this.front = front;
+        this.back = back;
+        this.id_deck = id_deck;
+    }
+
     public Long getId() {
         return id;
     }

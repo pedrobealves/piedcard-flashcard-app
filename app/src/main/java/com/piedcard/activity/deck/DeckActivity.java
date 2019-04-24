@@ -8,10 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.piedcard.R;
+import com.piedcard.activity.card.InsertCardActivity;
 import com.piedcard.model.dao.CardDAO;
 import com.piedcard.model.dao.DeckDAO;
 import com.piedcard.model.Deck;
@@ -112,6 +114,18 @@ public class DeckActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void insertCard(View view){
+        Intent intent = new Intent(DeckActivity.this, InsertCardActivity.class);
+        intent.putExtra("deckSelected", deckActual);
+        startActivity( intent );
+    }
+
+    public void studyList(View view){
+        Intent intent = new Intent(DeckActivity.this, StudyActivity.class);
+        intent.putExtra("deckSelected", deckActual);
+        startActivity( intent );
     }
 
 }

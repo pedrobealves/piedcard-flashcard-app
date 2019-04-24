@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.card.CardActivity"></activity>
+        <activity android:name=".activity.deck.StudyActivity"></activity>
+        <activity android:name=".activity.card.InsertCardActivity" />
+        <activity android:name=".activity.card.CardActivity" />
         <activity
             android:name=".activity.deck.DeckActivity"
             android:label="@string/title_activity_deck"
