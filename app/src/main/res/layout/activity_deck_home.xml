@@ -50,6 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:onClick="studyList"
             app:cardCornerRadius="3dp"
             app:cardElevation="4dp"
             app:cardUseCompatPadding="true">
@@ -88,6 +89,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             app:cardCornerRadius="3dp"
+            android:onClick="insertCard"
             app:cardElevation="4dp"
             app:cardUseCompatPadding="true">
 
