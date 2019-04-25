@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.piedcard.R;
 import com.piedcard.model.dao.DeckDAO;
 import com.piedcard.model.Deck;
+import com.piedcard.singleton.DaoSingletonFactory;
 
 public class InsertDeckActivity extends AppCompatActivity {
 
@@ -46,7 +47,7 @@ public class InsertDeckActivity extends AppCompatActivity {
             case R.id.itemSalvar :
                 //Executa açao para o item insert
 
-                DeckDAO deckDAO = new DeckDAO( getApplicationContext() );
+                DeckDAO deckDAO = (DeckDAO) DaoSingletonFactory.getDeckInstance(getApplicationContext());
 
                 if ( deckActual != null ){//edicao
 
@@ -75,7 +76,7 @@ public class InsertDeckActivity extends AppCompatActivity {
                     if ( !nomeTarefa.isEmpty() ){
                         Deck deck = new Deck(nomeTarefa);
 
-                        if ( deckDAO.insert(deck) ){
+                        if ( deckDAO.save(deck) ){
                             finish();
                             Toast.makeText(getApplicationContext(),
                                     "Sucesso ao insert deck!",

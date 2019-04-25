@@ -21,6 +21,7 @@ import com.piedcard.activity.deck.InsertDeckActivity;
 import com.piedcard.activity.settings.SettingsActivity;
 import com.piedcard.adapter.DeckAdapter;
 import com.piedcard.model.Deck;
+import com.piedcard.singleton.DaoSingletonFactory;
 import com.piedcard.util.RecyclerItemClickListener;
 import com.piedcard.model.dao.DeckDAO;
 
@@ -80,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
 
-                                        DeckDAO tarefaDAO = new DeckDAO(getApplicationContext());
+                                        DeckDAO tarefaDAO = (DeckDAO) DaoSingletonFactory.getDeckInstance(getApplicationContext());
                                         if ( tarefaDAO.delete(deckSelected) ){
 
                                             loadDeck();
@@ -126,8 +127,8 @@ public class MainActivity extends AppCompatActivity {
     public void loadDeck(){
 
         //Listar tarefas
-        DeckDAO tarefaDAO = new DeckDAO( getApplicationContext() );
-        deckList = tarefaDAO.list();
+        DeckDAO tarefaDAO = (DeckDAO) DaoSingletonFactory.getDeckInstance(getApplicationContext());
+        deckList = tarefaDAO.getAll();
 
         /*
             Exibe lista de DECK no Recyclerview

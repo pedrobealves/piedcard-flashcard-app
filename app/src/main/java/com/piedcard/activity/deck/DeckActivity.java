@@ -2,7 +2,9 @@ package com.piedcard.activity.deck;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -17,6 +19,7 @@ import com.piedcard.activity.card.InsertCardActivity;
 import com.piedcard.model.dao.CardDAO;
 import com.piedcard.model.dao.DeckDAO;
 import com.piedcard.model.Deck;
+import com.piedcard.singleton.DaoSingletonFactory;
 
 public class DeckActivity extends AppCompatActivity {
 
@@ -38,16 +41,18 @@ public class DeckActivity extends AppCompatActivity {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void loadDeck() {
         if ( deckActual != null ){
-            DeckDAO deckDAO = new DeckDAO( getApplicationContext() );
-            CardDAO cardDAO = new CardDAO( getApplicationContext() );
-            deckActual = deckDAO.read(deckActual.getId());
+            DeckDAO deckDAO = (DeckDAO) DaoSingletonFactory.getDeckInstance(getApplicationContext());
+            CardDAO cardDAO = (CardDAO) DaoSingletonFactory.getCardInstance(getApplicationContext());
+            deckActual = deckDAO.get(deckActual.getId());
             title.setText( deckActual.getName() );
             countCards.setText(String.valueOf(cardDAO.count(deckActual.getId())) + " " + getString(R.string.cards));
         }
     }
 
+        @RequiresApi(api = Build.VERSION_CODES.N)
         @Override
     protected void onStart() {
         loadDeck();
@@ -88,7 +93,7 @@ public class DeckActivity extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 
-                    DeckDAO tarefaDAO = new DeckDAO(getApplicationContext());
+                    DeckDAO tarefaDAO =  (DeckDAO) DaoSingletonFactory.getDeckInstance(getApplicationContext());
                     if ( tarefaDAO.delete(deckActual) ){
 
                         finish();
