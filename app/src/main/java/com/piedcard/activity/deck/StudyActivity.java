@@ -11,6 +11,7 @@ import com.piedcard.adapter.CardStudyAdapter;
 import com.piedcard.model.Card;
 import com.piedcard.model.Deck;
 import com.piedcard.model.dao.CardDAO;
+import com.piedcard.singleton.DaoSingletonFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,8 +44,8 @@ public class StudyActivity extends AppCompatActivity {
     public void loadDeck(){
 
         //Listar tarefas
-        CardDAO tarefaDAO = new CardDAO( getApplicationContext() );
-        cardList = tarefaDAO.list(deckActual.getId());
+        CardDAO tarefaDAO = (CardDAO) DaoSingletonFactory.getCardInstance(getApplicationContext());
+        cardList = tarefaDAO.getAllById(deckActual.getId());
 
         /*
             Exibe lista de DECK no Recyclerview

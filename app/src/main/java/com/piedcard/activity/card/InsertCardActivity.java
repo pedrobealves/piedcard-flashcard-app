@@ -6,13 +6,13 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.piedcard.R;
 import com.piedcard.model.Card;
 import com.piedcard.model.Deck;
 import com.piedcard.model.dao.CardDAO;
+import com.piedcard.singleton.DaoSingletonFactory;
 
 public class InsertCardActivity extends AppCompatActivity {
 
@@ -70,7 +70,7 @@ public class InsertCardActivity extends AppCompatActivity {
             case R.id.itemSalvar :
                 //Executa açao para o item insert
 
-                CardDAO cardDAO = new CardDAO( getApplicationContext() );
+                CardDAO cardDAO = (CardDAO) DaoSingletonFactory.getCardInstance(getApplicationContext());
 
                 if ( cardActual != null ){//edicao
 
@@ -101,7 +101,7 @@ public class InsertCardActivity extends AppCompatActivity {
                     if ( !termText.isEmpty() && !defText.isEmpty() ){
                         Card card = new Card(termText, defText, deckActual.getId());
 
-                        if ( cardDAO.insert(card) ){
+                        if ( cardDAO.save(card) ){
                             finish();
                             Toast.makeText(getApplicationContext(),
                                     "Sucesso ao insert deck!",
