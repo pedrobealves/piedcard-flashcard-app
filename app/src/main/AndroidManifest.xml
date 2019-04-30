@@ -10,12 +10,25 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activity.deck.StudyActivity"></activity>
-        <activity android:name=".activity.card.InsertCardActivity" />
+        <activity
+            android:name=".activity.card.InsertCardActivity"
+            android:parentActivityName=".activity.deck.DeckActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.deck.DeckActivity" />
+        </activity>
         <activity android:name=".activity.card.CardActivity" />
         <activity
             android:name=".activity.deck.DeckActivity"
             android:label="@string/title_activity_deck"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:launchMode="singleTop"
+            android:parentActivityName=".activity.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.MainActivity" />
+        </activity>
         <activity
             android:name=".activity.settings.SettingsActivity"
             android:label="@string/title_activity_settings" />
@@ -29,7 +42,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.deck.InsertDeckActivity" />
+        <activity
+            android:name=".activity.deck.InsertDeckActivity"
+            android:parentActivityName=".activity.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

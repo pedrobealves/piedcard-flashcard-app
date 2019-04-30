@@ -1,6 +1,7 @@
 package com.piedcard.activity.card;
 
 import android.support.design.widget.TextInputEditText;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -30,6 +31,12 @@ public class InsertCardActivity extends AppCompatActivity {
         term = findViewById(R.id.termText);
         def = findViewById(R.id.defText);
         cardView = findViewById(R.id.cardView);
+
+        // Get a support ActionBar corresponding to this toolbar
+        ActionBar ab = getSupportActionBar();
+
+        // Enable the Up button
+        ab.setDisplayHomeAsUpEnabled(true);
 
 
         //Recuperar DECK, caso seja edição
