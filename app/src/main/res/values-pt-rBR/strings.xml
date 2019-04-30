@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PiedCard</string>
+    <string name="action_settings">Configurações</string>
+    <string name="list">LISTA</string>
+    <string name="name_list">TÍTULO</string>
+    <string name="title_deck">TÍTULO</string>
+    <string name="title_activity_settings">ConfiguraçõesActivity</string>
+    <string name="cards">cartas</string>
+    <string name="pref_header_general">Geral</string>
+    <string name="edit_deck">Editar</string>
+    <string name="delete_deck">Deletar</string>
+    <string name="study">ESTUDAR</string>
+    <string name="write">ESCREVER</string>
+</resources>

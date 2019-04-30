@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -34,14 +35,19 @@ public class DeckActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // Get a support ActionBar corresponding to this toolbar
+        ActionBar ab = getSupportActionBar();
+
+        // Enable the Up button
+        ab.setDisplayHomeAsUpEnabled(true);
+
         title = findViewById(R.id.title_deck);
         countCards = findViewById(R.id.count_cards);
 
         deckActual = (Deck) getIntent().getSerializableExtra("deckSelected");
-
+        System.out.println(deckActual.getId());
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public void loadDeck() {
         if ( deckActual != null ){
             DeckDAO deckDAO = (DeckDAO) DaoSingletonFactory.getDeckInstance(getApplicationContext());
