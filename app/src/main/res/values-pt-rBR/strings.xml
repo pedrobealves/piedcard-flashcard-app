@@ -12,4 +12,7 @@
     <string name="delete_deck">Deletar</string>
     <string name="study">ESTUDAR</string>
     <string name="write">ESCREVER</string>
+    <string name="title_activity_deck">LISTA</string>
+    <string name="term">TERMO</string>
+    <string name="def">DEFINIÇÃO</string>
 </resources>

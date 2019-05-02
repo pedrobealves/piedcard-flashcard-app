@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -18,7 +19,6 @@ import android.widget.Toast;
 import com.piedcard.R;
 import com.piedcard.activity.deck.DeckActivity;
 import com.piedcard.activity.deck.InsertDeckActivity;
-import com.piedcard.activity.settings.SettingsActivity;
 import com.piedcard.adapter.DeckAdapter;
 import com.piedcard.model.Deck;
 import com.piedcard.singleton.DaoSingletonFactory;
@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         //Configurar recycler
         recyclerView = findViewById(R.id.recyclerView);
@@ -168,8 +170,7 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
-            startActivity( intent );
+
         }
 
         return super.onOptionsItemSelected(item);
