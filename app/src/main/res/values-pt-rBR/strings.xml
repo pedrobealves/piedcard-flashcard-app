@@ -5,9 +5,7 @@
     <string name="list">LISTA</string>
     <string name="name_list">TÍTULO</string>
     <string name="title_deck">TÍTULO</string>
-    <string name="title_activity_settings">ConfiguraçõesActivity</string>
     <string name="cards">cartas</string>
-    <string name="pref_header_general">Geral</string>
     <string name="edit_deck">Editar</string>
     <string name="delete_deck">Deletar</string>
     <string name="study">ESTUDAR</string>
@@ -15,4 +13,23 @@
     <string name="title_activity_deck">LISTA</string>
     <string name="term">TERMO</string>
     <string name="def">DEFINIÇÃO</string>
+    <string name="about">Sobre</string>
+    <string name="night_mode">Modo Noturno</string>
+    <string name="about_text">Aplicação para estudos com flashcards</string>
+    <string name="confirm_delete">Confirmar exclusão</string>
+    <string name="ask_confirm_delete">"Deseja delestar a lista "</string>
+    <string name="yes">Sim</string>
+    <string name="sucess_delete_list">Sucesso ao deletar a lista\"</string>
+    <string name="error_delete_list">Erro ao deletar a lista!</string>
+    <string name="no">Não</string>
+    <string name="navigation_drawer_open">Abrir navegação</string>
+    <string name="navigation_drawer_close">Fechar navegação</string>
+    <string name="sucess_update_list">Sucesso ao atualizar lista!</string>
+    <string name="error_update_list">Erro ao atualizar lista!</string>
+    <string name="sucess_insert_list">Success when inserting list!</string>
+    <string name="error_insert_list">Erro ao inserir lista!</string>
+    <string name="sucess_update_card">Sucesso ao atualizar carta!</string>
+    <string name="error_update_card">Erro ao atualizar carta!</string>
+    <string name="sucess_insert_card">Sucesso ao inserir carta!</string>
+    <string name="error_insert_card">Erro ao inserir carta!</string>
 </resources>

@@ -12,4 +12,23 @@
     <string name="write">WRITE</string>
     <string name="term">TERM</string>
     <string name="def">DEFINITION</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="about">About</string>
+    <string name="night_mode">Night Mode</string>
+    <string name="about_text">Application for studies by flashcards</string>
+    <string name="confirm_delete">Confirm delete</string>
+    <string name="ask_confirm_delete">"Do you want to delete the list "</string>
+    <string name="yes">Yes</string>
+    <string name="sucess_delete_list">Success while deleting list!</string>
+    <string name="error_delete_list">Error deleting list!</string>
+    <string name="no">No</string>
+    <string name="sucess_update_list">"Success when updating list! "</string>
+    <string name="error_update_list">Error updating list!</string>
+    <string name="sucess_insert_list">Sucesso ao inserir lista!</string>
+    <string name="error_insert_list">Erro ao inserir lista!</string>
+    <string name="sucess_update_card">Sucesso ao atualizar carta!</string>
+    <string name="error_update_card">Erro ao atualizar carta!</string>
+    <string name="sucess_insert_card">Sucesso ao inserir carta!</string>
+    <string name="error_insert_card">Erro ao inserir carta!</string>
 </resources>

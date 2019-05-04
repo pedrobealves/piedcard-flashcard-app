@@ -8,8 +8,8 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.piedcard.R;
-import com.piedcard.model.dao.DeckDAO;
 import com.piedcard.model.Deck;
+import com.piedcard.model.dao.interfaces.DAO;
 import com.piedcard.singleton.DaoSingletonFactory;
 
 public class InsertDeckActivity extends AppCompatActivity {
@@ -20,7 +20,7 @@ public class InsertDeckActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_adicionar_tarefa);
+        setContentView(R.layout.activity_insert_deck);
 
         editDeck = findViewById(R.id.textTarefa);
 
@@ -36,7 +36,7 @@ public class InsertDeckActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_adicionar_tarefa, menu);
+        getMenuInflater().inflate(R.menu.menu_insert_deck, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -47,7 +47,7 @@ public class InsertDeckActivity extends AppCompatActivity {
             case R.id.itemSalvar :
                 //Executa açao para o item insert
 
-                DeckDAO deckDAO = (DeckDAO) DaoSingletonFactory.getDeckInstance(getApplicationContext());
+                DAO deckDAO = (DAO) DaoSingletonFactory.getDeckInstance(getApplicationContext());
 
                 if ( deckActual != null ){//edicao
 
@@ -60,11 +60,11 @@ public class InsertDeckActivity extends AppCompatActivity {
                         if ( deckDAO.update(deck) ){
                             finish();
                             Toast.makeText(getApplicationContext(),
-                                    "Sucesso ao update deck!",
+                                    getString(R.string.sucess_update_list),
                                     Toast.LENGTH_SHORT).show();
                         }else {
                             Toast.makeText(getApplicationContext(),
-                                    "Erro ao update deck!",
+                                    getString(R.string.error_update_list),
                                     Toast.LENGTH_SHORT).show();
                         }
 
@@ -79,11 +79,11 @@ public class InsertDeckActivity extends AppCompatActivity {
                         if ( deckDAO.save(deck) ){
                             finish();
                             Toast.makeText(getApplicationContext(),
-                                    "Sucesso ao insert deck!",
+                                    getString(R.string.sucess_insert_list),
                                     Toast.LENGTH_SHORT).show();
                         }else {
                             Toast.makeText(getApplicationContext(),
-                                    "Erro ao insert deck!",
+                                    getString(R.string.error_insert_list),
                                     Toast.LENGTH_SHORT).show();
                         }
 
