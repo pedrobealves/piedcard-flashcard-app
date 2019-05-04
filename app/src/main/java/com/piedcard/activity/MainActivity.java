@@ -28,8 +28,10 @@ import android.widget.Toast;
 import com.piedcard.R;
 import com.piedcard.activity.deck.DeckActivity;
 import com.piedcard.activity.deck.InsertDeckActivity;
+import com.piedcard.activity.pages.AboutActivity;
 import com.piedcard.adapter.DeckAdapter;
 import com.piedcard.model.Deck;
+import com.piedcard.model.dao.interfaces.DAO;
 import com.piedcard.singleton.DaoSingletonFactory;
 import com.piedcard.util.RecyclerItemClickListener;
 import com.piedcard.model.dao.DeckDAO;
@@ -61,38 +63,8 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        setThemeMode();
 
-        MenuItem menuItem = navigationView.getMenu().findItem(R.id.switch_mode); // This is the menu item that contains your switch
-        Switch drawer_switch = (Switch) menuItem.getActionView().findViewById(R.id.switch_mode_item);
-
-
-        SharedPreferences mPrefs =  PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
-        boolean isNightModeEnabled = mPrefs.getBoolean("NIGHT_MODE", false);
-
-        drawer_switch.setChecked(isNightModeEnabled);
-
-        if(isNightModeEnabled)
-            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-
-        drawer_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            SharedPreferences myPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
-            SharedPreferences.Editor myEditor = myPreferences.edit();
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-               if(isChecked) {
-                   getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                   myEditor.putBoolean("NIGHT_MODE", true);
-                   myEditor.commit();
-               }
-               else {
-                   getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                   myEditor.putBoolean("NIGHT_MODE", false);
-                   myEditor.commit();
-               }
-            }
-        });
         //Adicionar evento de clique
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(
@@ -122,31 +94,31 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
                                 AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
 
                                 //Configura título e mensagem
-                                dialog.setTitle("Confirmar exclusão");
-                                dialog.setMessage("Deseja excluir a tarefa: " + deckSelected.getName() + " ?" );
+                                dialog.setTitle(R.string.confirm_delete);
+                                dialog.setMessage(getString(R.string.ask_confirm_delete) + deckSelected.getName() + " ?" );
 
-                                dialog.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                                dialog.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
 
-                                        DeckDAO tarefaDAO = (DeckDAO) DaoSingletonFactory.getDeckInstance(getApplicationContext());
+                                        DAO tarefaDAO = (DAO) DaoSingletonFactory.getDeckInstance(getApplicationContext());
                                         if ( tarefaDAO.delete(deckSelected) ){
 
                                             loadDeck();
                                             Toast.makeText(getApplicationContext(),
-                                                    "Sucesso ao excluir lista!",
+                                                    getString(R.string.sucess_delete_list),
                                                     Toast.LENGTH_SHORT).show();
 
                                         }else {
                                             Toast.makeText(getApplicationContext(),
-                                                    "Erro ao excluir lista!",
+                                                    getString(R.string.error_delete_list),
                                                     Toast.LENGTH_SHORT).show();
                                         }
 
                                     }
                                 });
 
-                                dialog.setNegativeButton("Não", null );
+                                dialog.setNegativeButton(R.string.no, null );
 
                                 //Exibir dialog
                                 dialog.create();
@@ -175,7 +147,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
     public void loadDeck(){
 
         //Listar tarefas
-        DeckDAO tarefaDAO = (DeckDAO) DaoSingletonFactory.getDeckInstance(getApplicationContext());
+        DAO tarefaDAO = (DAO) DaoSingletonFactory.getDeckInstance(getApplicationContext());
         deckList = tarefaDAO.getAll();
 
         /*
@@ -200,20 +172,31 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         super.onStart();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
+    private void setThemeMode() {
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+        MenuItem menuItem = navigationView.getMenu().findItem(R.id.switch_mode); // This is the menu item that contains your switch
+        Switch drawer_switch = (Switch) menuItem.getActionView().findViewById(R.id.switch_mode_item);
 
-        return super.onOptionsItemSelected(item);
+        SharedPreferences mPrefs =  PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+        boolean isNightModeEnabled = mPrefs.getBoolean("NIGHT_MODE", false);
+
+        drawer_switch.setChecked(isNightModeEnabled);
+
+        if(isNightModeEnabled)
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+
+        drawer_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            SharedPreferences myPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+            SharedPreferences.Editor myEditor = myPreferences.edit();
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    getDelegate().setLocalNightMode(isChecked ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
+                    myEditor.putBoolean("NIGHT_MODE", isChecked);
+                    myEditor.apply();
+            }
+        });
     }
 
     @Override
@@ -231,6 +214,11 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+
+        if(id == R.id.about){
+            Intent intent = new Intent(MainActivity.this, AboutActivity.class);
+            startActivity( intent );
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

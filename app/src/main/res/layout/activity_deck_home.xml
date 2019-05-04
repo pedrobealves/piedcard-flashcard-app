@@ -53,6 +53,9 @@
             android:onClick="studyList"
             app:cardCornerRadius="3dp"
             app:cardElevation="4dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:selectableItemBackground"
             app:cardUseCompatPadding="true">
 
             <LinearLayout
@@ -91,6 +94,9 @@
             app:cardCornerRadius="3dp"
             android:onClick="insertCard"
             app:cardElevation="4dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:selectableItemBackground"
             app:cardUseCompatPadding="true">
 
             <LinearLayout

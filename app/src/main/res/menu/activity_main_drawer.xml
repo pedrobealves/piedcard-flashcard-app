@@ -7,15 +7,19 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/switch_mode"
+            android:checkable="false"
+            android:enabled="true"
             android:icon="@drawable/ic_sync_black_24dp"
-            android:title="Modo Noturno"
+            android:title="@string/night_mode"
             android:visible="true"
             app:actionLayout="@layout/switch_item"
             app:showAsAction="always"></item>
         <item
             android:id="@+id/about"
+            android:checkable="false"
+            android:enabled="true"
             android:icon="@drawable/ic_info_black_24dp"
-            android:title="Sobre" />
+            android:title="@string/about"
+            android:visible="true" />
     </group>
-
 </menu>

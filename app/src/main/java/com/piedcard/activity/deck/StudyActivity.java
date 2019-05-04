@@ -1,16 +1,18 @@
 package com.piedcard.activity.deck;
 
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.piedcard.R;
 import com.piedcard.adapter.CardStudyAdapter;
 import com.piedcard.model.Card;
 import com.piedcard.model.Deck;
-import com.piedcard.model.dao.CardDAO;
+import com.piedcard.model.dao.interfaces.DAO;
 import com.piedcard.singleton.DaoSingletonFactory;
 
 import java.util.ArrayList;
@@ -30,21 +32,19 @@ public class StudyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_study);
 
-        getSupportActionBar().hide();
-
         recyclerView = findViewById(R.id.cardRecyclerView);
-        title = findViewById(R.id.titleDeckStudy);
+        //title = findViewById(R.id.titleDeckStudy);
 
         deckActual = (Deck) getIntent().getSerializableExtra("deckSelected");
 
-        title.setText(deckActual.getName());
+        //title.setText(deckActual.getName());
     }
 
 
     public void loadDeck(){
 
         //Listar tarefas
-        CardDAO tarefaDAO = (CardDAO) DaoSingletonFactory.getCardInstance(getApplicationContext());
+        DAO tarefaDAO = (DAO) DaoSingletonFactory.getCardInstance(getApplicationContext());
         cardList = tarefaDAO.getAllById(deckActual.getId());
 
         /*

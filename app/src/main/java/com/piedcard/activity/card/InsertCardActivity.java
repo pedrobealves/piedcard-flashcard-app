@@ -12,7 +12,7 @@ import android.widget.Toast;
 import com.piedcard.R;
 import com.piedcard.model.Card;
 import com.piedcard.model.Deck;
-import com.piedcard.model.dao.CardDAO;
+import com.piedcard.model.dao.interfaces.DAO;
 import com.piedcard.singleton.DaoSingletonFactory;
 
 public class InsertCardActivity extends AppCompatActivity {
@@ -66,7 +66,7 @@ public class InsertCardActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_adicionar_tarefa, menu);
+        getMenuInflater().inflate(R.menu.menu_insert_deck, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -77,7 +77,7 @@ public class InsertCardActivity extends AppCompatActivity {
             case R.id.itemSalvar :
                 //Executa açao para o item insert
 
-                CardDAO cardDAO = (CardDAO) DaoSingletonFactory.getCardInstance(getApplicationContext());
+                DAO cardDAO = (DAO) DaoSingletonFactory.getCardInstance(getApplicationContext());
 
                 if ( cardActual != null ){//edicao
 
@@ -91,11 +91,11 @@ public class InsertCardActivity extends AppCompatActivity {
                         if ( cardDAO.update(card) ){
                             finish();
                             Toast.makeText(getApplicationContext(),
-                                    "Sucesso ao update card!",
+                                    getString(R.string.sucess_update_card),
                                     Toast.LENGTH_SHORT).show();
                         }else {
                             Toast.makeText(getApplicationContext(),
-                                    "Erro ao update card!",
+                                    getString(R.string.error_update_card),
                                     Toast.LENGTH_SHORT).show();
                         }
 
@@ -111,11 +111,11 @@ public class InsertCardActivity extends AppCompatActivity {
                         if ( cardDAO.save(card) ){
                             finish();
                             Toast.makeText(getApplicationContext(),
-                                    "Sucesso ao insert deck!",
+                                    getString(R.string.sucess_insert_card),
                                     Toast.LENGTH_SHORT).show();
                         }else {
                             Toast.makeText(getApplicationContext(),
-                                    "Erro ao insert deck!",
+                                    getString(R.string.error_insert_card),
                                     Toast.LENGTH_SHORT).show();
                         }
 

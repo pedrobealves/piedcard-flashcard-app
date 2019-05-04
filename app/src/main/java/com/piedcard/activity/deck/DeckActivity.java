@@ -17,9 +17,8 @@ import android.widget.Toast;
 
 import com.piedcard.R;
 import com.piedcard.activity.card.InsertCardActivity;
-import com.piedcard.model.dao.CardDAO;
-import com.piedcard.model.dao.DeckDAO;
 import com.piedcard.model.Deck;
+import com.piedcard.model.dao.interfaces.DAO;
 import com.piedcard.singleton.DaoSingletonFactory;
 
 public class DeckActivity extends AppCompatActivity {
@@ -50,9 +49,9 @@ public class DeckActivity extends AppCompatActivity {
 
     public void loadDeck() {
         if ( deckActual != null ){
-            DeckDAO deckDAO = (DeckDAO) DaoSingletonFactory.getDeckInstance(getApplicationContext());
-            CardDAO cardDAO = (CardDAO) DaoSingletonFactory.getCardInstance(getApplicationContext());
-            deckActual = deckDAO.get(deckActual.getId());
+            DAO deckDAO = (DAO) DaoSingletonFactory.getDeckInstance(getApplicationContext());
+            DAO cardDAO = (DAO) DaoSingletonFactory.getCardInstance(getApplicationContext());
+            deckActual = (Deck) deckDAO.get(deckActual.getId());
             title.setText( deckActual.getName() );
             countCards.setText(String.valueOf(cardDAO.count(deckActual.getId())) + " " + getString(R.string.cards));
         }
@@ -92,31 +91,31 @@ public class DeckActivity extends AppCompatActivity {
             AlertDialog.Builder dialog = new AlertDialog.Builder(DeckActivity.this);
 
             //Configura título e mensagem
-            dialog.setTitle("Confirmar exclusão");
-            dialog.setMessage("Deseja excluir a tarefa: " + deckActual.getName() + " ?" );
+            dialog.setTitle(R.string.confirm_delete);
+            dialog.setMessage(getString(R.string.ask_confirm_delete) + deckActual.getName() + " ?" );
 
-            dialog.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+            dialog.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 
-                    DeckDAO tarefaDAO =  (DeckDAO) DaoSingletonFactory.getDeckInstance(getApplicationContext());
+                    DAO tarefaDAO =  (DAO) DaoSingletonFactory.getDeckInstance(getApplicationContext());
                     if ( tarefaDAO.delete(deckActual) ){
 
                         finish();
                         Toast.makeText(getApplicationContext(),
-                                "Sucesso ao excluir lista!",
+                                getString(R.string.sucess_delete_list),
                                 Toast.LENGTH_SHORT).show();
 
                     }else {
                         Toast.makeText(getApplicationContext(),
-                                "Erro ao excluir lista!",
+                                getString(R.string.error_delete_list),
                                 Toast.LENGTH_SHORT).show();
                     }
 
                 }
             });
 
-            dialog.setNegativeButton("Não", null );
+            dialog.setNegativeButton(R.string.no, null );
 
             //Exibir dialog
             dialog.create();
