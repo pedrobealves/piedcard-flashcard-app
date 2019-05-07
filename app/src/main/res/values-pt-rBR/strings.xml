@@ -15,7 +15,7 @@
     <string name="def">DEFINIÇÃO</string>
     <string name="about">Sobre</string>
     <string name="night_mode">Modo Noturno</string>
-    <string name="about_text">Aplicação para estudos com flashcards</string>
+    <string name="app_description">Aplicação para estudos com flashcards</string>
     <string name="confirm_delete">Confirmar exclusão</string>
     <string name="ask_confirm_delete">"Deseja delestar a lista "</string>
     <string name="yes">Sim</string>

@@ -19,7 +19,7 @@ import com.piedcard.R;
 import com.piedcard.activity.card.InsertCardActivity;
 import com.piedcard.model.Deck;
 import com.piedcard.model.dao.interfaces.DAO;
-import com.piedcard.singleton.DaoSingletonFactory;
+import com.piedcard.model.singleton.DaoSingletonFactory;
 
 public class DeckActivity extends AppCompatActivity {
 

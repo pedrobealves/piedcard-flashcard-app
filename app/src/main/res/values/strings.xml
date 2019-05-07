@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">PiedCard</string>
+    <string name="app_description">Application for studies by flashcards</string>
+    <string name="app_developer">Pedro Bernardi</string>
+    <string name="app_version">Version: 1.0.1</string>
     <string name="action_settings">Settings</string>
     <string name="list">LIST</string>
     <string name="name_list">TITLE</string>
@@ -16,7 +19,6 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="about">About</string>
     <string name="night_mode">Night Mode</string>
-    <string name="about_text">Application for studies by flashcards</string>
     <string name="confirm_delete">Confirm delete</string>
     <string name="ask_confirm_delete">"Do you want to delete the list "</string>
     <string name="yes">Yes</string>
@@ -31,4 +33,6 @@
     <string name="error_update_card">Erro ao atualizar carta!</string>
     <string name="sucess_insert_card">Sucesso ao inserir carta!</string>
     <string name="error_insert_card">Erro ao inserir carta!</string>
+    <string name="empty_name_list">Enter the name of the list</string>
+    <string name="exists_name_list">List name already exists</string>
 </resources>

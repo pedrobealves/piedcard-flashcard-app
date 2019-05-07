@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.piedcard.R;
 import com.piedcard.model.Card;
-import com.piedcard.singleton.DaoSingletonFactory;
+import com.piedcard.model.singleton.DaoSingletonFactory;
 
 import java.util.List;
 

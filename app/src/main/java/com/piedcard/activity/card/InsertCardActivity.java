@@ -13,7 +13,7 @@ import com.piedcard.R;
 import com.piedcard.model.Card;
 import com.piedcard.model.Deck;
 import com.piedcard.model.dao.interfaces.DAO;
-import com.piedcard.singleton.DaoSingletonFactory;
+import com.piedcard.model.singleton.DaoSingletonFactory;
 
 public class InsertCardActivity extends AppCompatActivity {
 

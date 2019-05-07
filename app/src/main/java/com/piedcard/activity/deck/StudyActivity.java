@@ -1,11 +1,9 @@
 package com.piedcard.activity.deck;
 
-import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.piedcard.R;
@@ -13,7 +11,7 @@ import com.piedcard.adapter.CardStudyAdapter;
 import com.piedcard.model.Card;
 import com.piedcard.model.Deck;
 import com.piedcard.model.dao.interfaces.DAO;
-import com.piedcard.singleton.DaoSingletonFactory;
+import com.piedcard.model.singleton.DaoSingletonFactory;
 
 import java.util.ArrayList;
 import java.util.List;
