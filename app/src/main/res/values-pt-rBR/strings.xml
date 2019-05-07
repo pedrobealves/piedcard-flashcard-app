@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">PiedCard</string>
     <string name="action_settings">Configurações</string>
     <string name="list">LISTA</string>
     <string name="name_list">TÍTULO</string>
@@ -32,4 +31,6 @@
     <string name="error_update_card">Erro ao atualizar carta!</string>
     <string name="sucess_insert_card">Sucesso ao inserir carta!</string>
     <string name="error_insert_card">Erro ao inserir carta!</string>
+    <string name="empty_name_list">Entre com um nome para lista</string>
+    <string name="exists_name_list">Esse nome de lista já existe</string>
 </resources>
