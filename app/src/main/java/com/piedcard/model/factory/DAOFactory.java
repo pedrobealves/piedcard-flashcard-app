@@ -1,4 +1,4 @@
-package com.piedcard.factory;
+package com.piedcard.model.factory;
 
 import android.content.Context;
 
@@ -15,9 +15,9 @@ public abstract class DAOFactory {
     public static DAO getDAOFactory(int aux, Context context){
         switch(aux){
             case 1:
-                return new DeckDAOSQLite(context);
+                return new DeckDAO(context);
             case 2:
-                return new CardDAOSQLite(context);
+                return new CardDAO(context);
             default:
                 return null;
         }

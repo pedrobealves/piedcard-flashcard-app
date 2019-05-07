@@ -1,8 +1,8 @@
-package com.piedcard.singleton;
+package com.piedcard.model.singleton;
 
 import android.content.Context;
 
-import com.piedcard.factory.DAOFactory;
+import com.piedcard.model.factory.DAOFactory;
 import com.piedcard.model.dao.interfaces.DAO;
 
 public class DaoSingletonFactory {
