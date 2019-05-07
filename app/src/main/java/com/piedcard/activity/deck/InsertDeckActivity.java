@@ -35,6 +35,7 @@ public class InsertDeckActivity extends AppCompatActivity {
         //Configurar DECK na caixa de texto
         if (deckActual != null) {
             editDeck.setText(deckActual.getName());
+            editDeck.setSelection(editDeck.getText().length());
         }
 
     }
