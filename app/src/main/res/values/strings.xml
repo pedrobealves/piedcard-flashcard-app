@@ -27,12 +27,13 @@
     <string name="no">No</string>
     <string name="sucess_update_list">"Success when updating list! "</string>
     <string name="error_update_list">Error updating list!</string>
-    <string name="sucess_insert_list">Sucesso ao inserir lista!</string>
-    <string name="error_insert_list">Erro ao inserir lista!</string>
-    <string name="sucess_update_card">Sucesso ao atualizar carta!</string>
-    <string name="error_update_card">Erro ao atualizar carta!</string>
-    <string name="sucess_insert_card">Sucesso ao inserir carta!</string>
-    <string name="error_insert_card">Erro ao inserir carta!</string>
+    <string name="sucess_insert_list">Success when inserting list!</string>
+    <string name="error_insert_list">Error inserting list!</string>
+    <string name="sucess_update_card">Success while updating card!</string>
+    <string name="error_update_card">Error updating card!</string>
+    <string name="sucess_insert_card">Success to insert card!</string>
+    <string name="error_insert_card">Error inserting card!</string>
     <string name="empty_name_list">Enter the name of the list</string>
     <string name="exists_name_list">List name already exists</string>
+    <string name="app_sub_name">Study with flashcards</string>
 </resources>

@@ -4,11 +4,13 @@
     tools:context="com.piedcard.activity.deck.DeckActivity">
     <item
         android:id="@+id/action_edit"
+        android:icon="@drawable/ic_edit_black_24dp"
         android:orderInCategory="100"
         android:title="@string/edit_deck"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_delete"
+        android:icon="@drawable/ic_delete_black_24dp"
         android:orderInCategory="100"
         android:title="@string/delete_deck"
         app:showAsAction="never" />
