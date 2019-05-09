@@ -1,6 +1,5 @@
 package com.piedcard.activity.deck;
 
-import android.os.Build;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,8 +9,6 @@ import android.widget.Toast;
 
 import com.piedcard.R;
 import com.piedcard.model.Deck;
-import com.piedcard.model.dao.DeckDAO;
-import com.piedcard.model.dao.database.DeckDAOSQLite;
 import com.piedcard.model.dao.interfaces.DAO;
 import com.piedcard.model.singleton.DaoSingletonFactory;
 

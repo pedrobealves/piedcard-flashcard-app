@@ -1,76 +1,150 @@
 package com.piedcard.model.dao;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+import android.util.Log;
 
+import com.piedcard.helper.DbHelper;
 import com.piedcard.model.Card;
 import com.piedcard.model.dao.interfaces.DAO;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class CardDAO implements DAO<Card> {
 
-    private List<Card> cards = new ArrayList<>();
-    private static int count = 1;
+    private SQLiteDatabase wt;
+    private SQLiteDatabase rd;
 
     public CardDAO(Context context) {
+        DbHelper db = new DbHelper( context );
+        wt = db.getWritableDatabase();
+        rd = db.getReadableDatabase();
     }
 
     @Override
     public Card get(long id) {
-        for (Card d : cards){
-            if(d.getId().equals(id)){
-                return d;
-            }
+
+        Card card = new Card();
+
+        String sql = "SELECT * FROM " + DbHelper.TABLE_CARD + " WHERE id=? ;";
+        Cursor c = rd.rawQuery(sql,  new String[]{Long.toString(id)});
+
+        if ( c.moveToNext() ){
+
+            Long id_card = c.getLong( c.getColumnIndex("card.id") );
+            String front = c.getString( c.getColumnIndex("front") );
+            String back = c.getString( c.getColumnIndex("back") );
+            Long id_deck = c.getLong( c.getColumnIndex("deck.id") );
+
+            card.setId( id_card );
+            card.setFront( front );
+            card.setBack( back );
+            card.setId_deck(id_deck);
+
+            Log.i("tarefaDao", card.getFront() );
+
+            return card;
         }
-        return null;    }
+
+        return null;
+    }
 
     @Override
     public List<Card> getAll() {
-        return cards;
+        return null;
     }
 
     @Override
     public List<Card> getAllById(long id) {
-        List<Card> c = new ArrayList<>();
-        for (Card d : cards){
-            if(d.getId_deck().equals(id)){
-                c.add(d);
-            }
+
+        List<Card> cards = new ArrayList<>();
+
+        String sql = "SELECT * FROM " + DbHelper.TABLE_CARD + " WHERE id_deck=? ;";
+        Cursor c = rd.rawQuery(sql, new String[]{Long.toString(id)});
+
+        while ( c.moveToNext() ){
+
+            Long id_card = c.getLong( c.getColumnIndex("card.id") );
+            String front = c.getString( c.getColumnIndex("front") );
+            String back = c.getString( c.getColumnIndex("back") );
+
+            Card card = new Card();
+
+            card.setId( id_card );
+            card.setFront( front );
+            card.setBack( back );
+            card.setId_deck(id);
+
+            cards.add(card);
+            Log.i("tarefaDao", card.getFront() );
         }
-        return c;
+
+        return cards;
     }
 
     @Override
-    public int count(long id) {
-        List<Card> c = new ArrayList<>();
-        for (Card d : cards){
-            if(d.getId_deck().equals(id)){
-                c.add(d);
-            }
-        }
-        return c.size();
+    public int count(long id_deck) {
+        String sql = "SELECT count(id) FROM " + DbHelper.TABLE_CARD + " WHERE id_deck=? ;";
+        Cursor c = rd.rawQuery(sql, new String[]{Long.toString(id_deck)});
+        c.moveToFirst();
+        return c.getInt(0);
     }
 
     @Override
     public boolean save(Card card) {
-        card.setId((long) count++);
-        return cards.add(card);
+
+        ContentValues cv = new ContentValues();
+        cv.put("front", card.getFront() );
+        cv.put("back", card.getBack() );
+        cv.put("id_deck", card.getId_deck() );
+
+        try {
+            wt.insert(DbHelper.TABLE_CARD, null, cv );
+            Log.i("INFO", "Carta salva com sucesso!");
+        }catch (Exception e){
+            Log.e("INFO", "Erro ao salvar carta " + e.getMessage() );
+            return false;
+        }
+        return true;
     }
 
     @Override
     public boolean update(Card card) {
-        for (Card d : cards){
-            if(d.getId().equals(card.getId())){
-                d.setFront(card.getFront());
-                d.setBack(card.getBack());
-                return true;
-            }
+
+        ContentValues cv = new ContentValues();
+        cv.put("front", card.getFront() );
+        cv.put("back", card.getBack() );
+        cv.put("id_deck", card.getId_deck() );
+
+        try {
+            String[] args = {card.getId().toString()};
+            wt.update(DbHelper.TABLE_DECK, cv, "id=?", args );
+            Log.i("INFO", "Carta atualizada com sucesso!");
+        }catch (Exception e){
+            Log.e("INFO", "Erro ao atualizar carta " + e.getMessage() );
+            return false;
         }
-        return false;      }
+        return true;
+    }
 
     @Override
     public boolean delete(Card card) {
-        return cards.remove(card);
+
+        try {
+            String[] args = { card.getId().toString() };
+            wt.delete(DbHelper.TABLE_CARD, "id=?", args );
+            Log.i("INFO", "Carta removida com sucesso!");
+        }catch (Exception e){
+            Log.e("INFO", "Erro ao remover carta " + e.getMessage() );
+            return false;
+        }
+        return true;
     }
+
 }

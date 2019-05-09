@@ -1,39 +1,122 @@
 package com.piedcard.model.dao;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.util.Log;
 
+import com.piedcard.helper.DbHelper;
 import com.piedcard.model.Deck;
 import com.piedcard.model.dao.interfaces.DAO;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.Optional;
 
 public class DeckDAO implements DAO<Deck> {
 
-    private List<Deck> decks = new ArrayList<>();
-    private static int count = 1;
+    private SQLiteDatabase wt;
+    private SQLiteDatabase rd;
 
     public DeckDAO(Context context) {
+        DbHelper db = new DbHelper( context );
+        wt = db.getWritableDatabase();
+        rd = db.getReadableDatabase();
+    }
 
+    @Override
+    public boolean save(Deck deck) {
+
+        ContentValues cv = new ContentValues();
+        cv.put("name", deck.getName() );
+
+        try {
+            wt.insert(DbHelper.TABLE_DECK, null, cv );
+            Log.i("INFO", "Deck salva com sucesso!");
+        }catch (Exception e){
+            Log.e("INFO", "Erro ao insert deck " + e.getMessage() );
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean update(Deck deck) {
+
+        ContentValues cv = new ContentValues();
+        cv.put("name", deck.getName() );
+
+        try {
+            String[] args = {deck.getId().toString()};
+            wt.update(DbHelper.TABLE_DECK, cv, "id=?", args );
+            Log.i("INFO", "Deck atualizada com sucesso!");
+        }catch (Exception e){
+            Log.e("INFO", "Erro ao atualizada deck " + e.getMessage() );
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean delete(Deck deck) {
+
+        try {
+            String[] args = { deck.getId().toString() };
+            wt.delete(DbHelper.TABLE_DECK, "id=?", args );
+            Log.i("INFO", "Deck removida com sucesso!");
+        }catch (Exception e){
+            Log.e("INFO", "Erro ao remover deck " + e.getMessage() );
+            return false;
+        }
+        return true;
     }
 
     @Override
     public Deck get(long id) {
-        for (Deck d : decks){
-            if(d.getId().equals(id)){
-                return d;
-            }
+
+        String sql = "SELECT * FROM " + DbHelper.TABLE_DECK + " WHERE id=? ;";
+        Cursor c = rd.rawQuery(sql,  new String[]{Long.toString(id)});
+
+        if ( c.moveToNext() ){
+
+            Long id_deck = c.getLong( c.getColumnIndex("id") );
+            String deckName = c.getString( c.getColumnIndex("name") );
+
+            Deck d = new Deck(id_deck, deckName );
+
+            Log.i("tarefaDao", d.getName() );
+
+            return d;
         }
+
         return null;
     }
 
     @Override
     public List<Deck> getAll() {
+
+        List<Deck> decks = new ArrayList<>();
+
+        String sql = "SELECT * FROM " + DbHelper.TABLE_DECK + " ;";
+        Cursor c = rd.rawQuery(sql, null);
+
+        while ( c.moveToNext() ){
+
+
+            Long id = c.getLong( c.getColumnIndex("id") );
+            String deckName = c.getString( c.getColumnIndex("name") );
+
+            Deck deck = new Deck(id, deckName);
+
+            decks.add(deck);
+            Log.i("tarefaDao", deck.getName() );
+        }
+
         return decks;
+
     }
 
     @Override
@@ -43,28 +126,6 @@ public class DeckDAO implements DAO<Deck> {
 
     @Override
     public int count(long id) {
-        return decks.size();
-    }
-
-    @Override
-    public boolean save(Deck deck) {
-        deck.setId((long) count++);
-        return decks.add(deck);
-    }
-
-    @Override
-    public boolean update(Deck deck) {
-        for (Deck d : decks){
-            if(d.getId().equals(deck.getId())){
-                d.setName(deck.getName());
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public boolean delete(Deck deck) {
-        return decks.remove(deck);
+        return 0;
     }
 }

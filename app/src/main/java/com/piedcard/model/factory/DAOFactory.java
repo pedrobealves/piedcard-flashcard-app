@@ -4,8 +4,6 @@ import android.content.Context;
 
 import com.piedcard.model.dao.CardDAO;
 import com.piedcard.model.dao.DeckDAO;
-import com.piedcard.model.dao.database.CardDAOSQLite;
-import com.piedcard.model.dao.database.DeckDAOSQLite;
 import com.piedcard.model.dao.interfaces.DAO;
 
 public abstract class DAOFactory {
