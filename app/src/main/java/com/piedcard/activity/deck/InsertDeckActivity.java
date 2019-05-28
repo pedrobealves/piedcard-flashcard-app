@@ -8,9 +8,10 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.piedcard.R;
+import com.piedcard.dao.DeckDAO;
+import com.piedcard.database.DeckDatabase;
 import com.piedcard.model.Deck;
-import com.piedcard.model.dao.interfaces.DAO;
-import com.piedcard.model.singleton.DaoSingletonFactory;
+import com.piedcard.dao.DAO;
 
 import java.util.ArrayList;
 
@@ -49,17 +50,19 @@ public class InsertDeckActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.itemSalvar:
 
-                DAO deckDAO = DaoSingletonFactory.getDeckInstance(getApplicationContext());
+                DeckDAO deckDAO = DeckDatabase.getDatabase(getApplicationContext()).DeckDAO();
 
                 if (deckActual != null) {//edicao
                     String nomeTarefa = editDeck.getText().toString();
 
                     if (validateData()) {
 
-                        Deck deck = new Deck(deckActual.getId(), nomeTarefa);
+                        Deck deck = new Deck();
+                        deck.setId(deckActual.getId());
+                        deck.setName(nomeTarefa);
 
                         //update no banco de dados
-                        if (deckDAO.update(deck)) {
+                        if (deckDAO.update(deck) > 0) {
                             finish();
                             Toast.makeText(getApplicationContext(),
                                     getString(R.string.sucess_update_list),
@@ -76,9 +79,10 @@ public class InsertDeckActivity extends AppCompatActivity {
 
                     String nomeTarefa = editDeck.getText().toString();
                     if (validateData()) {
-                        Deck deck = new Deck(nomeTarefa);
+                        Deck deck = new Deck();
+                        deck.setName(nomeTarefa);
 
-                        if (deckDAO.save(deck)) {
+                        if (deckDAO.save(deck) > 0) {
                             finish();
                             Toast.makeText(getApplicationContext(),
                                     getString(R.string.sucess_insert_list),
@@ -109,7 +113,7 @@ public class InsertDeckActivity extends AppCompatActivity {
             return false;
         }
 
-        ArrayList<Deck> decks = (ArrayList<Deck>) DaoSingletonFactory.getDeckInstance(getApplicationContext()).getAll();
+        ArrayList<Deck> decks = (ArrayList<Deck>) DeckDatabase.getDatabase(getApplicationContext()).DeckDAO().getAll();
         for (Deck d : decks) {
             if (d.getName().equalsIgnoreCase(listName)) {
                 this.editDeck.setError(getString(R.string.exists_name_list));

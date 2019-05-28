@@ -10,10 +10,10 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.piedcard.R;
+import com.piedcard.dao.CardDAO;
+import com.piedcard.database.DeckDatabase;
 import com.piedcard.model.Card;
 import com.piedcard.model.Deck;
-import com.piedcard.model.dao.interfaces.DAO;
-import com.piedcard.model.singleton.DaoSingletonFactory;
 
 public class InsertCardActivity extends AppCompatActivity {
 
@@ -77,7 +77,7 @@ public class InsertCardActivity extends AppCompatActivity {
             case R.id.itemSalvar :
                 //Executa açao para o item insert
 
-                DAO cardDAO = (DAO) DaoSingletonFactory.getCardInstance(getApplicationContext());
+                CardDAO cardDAO = DeckDatabase.getDatabase(getApplicationContext()).CardDAO();
 
                 if ( cardActual != null ){//edicao
 
@@ -85,10 +85,14 @@ public class InsertCardActivity extends AppCompatActivity {
                     String defText = def.getText().toString();
                     if ( !termText.isEmpty() && !defText.isEmpty()){
 
-                        Card card = new Card(cardActual.getId(), termText, defText, cardActual.getId_deck());
+                        Card card = new Card();
+                        card.setId(cardActual.getId());
+                        card.setFront(termText);
+                        card.setBack(defText);
+                        card.setIdDeck(cardActual.getIdDeck());
 
                         //update no banco de dados
-                        if ( cardDAO.update(card) ){
+                        if ( cardDAO.update(card) > 0){
                             finish();
                             Toast.makeText(getApplicationContext(),
                                     getString(R.string.sucess_update_card),
@@ -106,9 +110,12 @@ public class InsertCardActivity extends AppCompatActivity {
                     String termText = term.getText().toString();
                     String defText = def.getText().toString();
                     if ( !termText.isEmpty() && !defText.isEmpty() ){
-                        Card card = new Card(termText, defText, deckActual.getId());
+                        Card card = new Card();
+                        card.setFront(termText);
+                        card.setBack(defText);
+                        card.setIdDeck(deckActual.getId());
 
-                        if ( cardDAO.save(card) ){
+                        if ( cardDAO.save(card) > 0 ){
                             finish();
                             Toast.makeText(getApplicationContext(),
                                     getString(R.string.sucess_insert_card),

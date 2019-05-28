@@ -1,27 +1,30 @@
 package com.piedcard.model;
 
-public class Card {
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
+import java.io.Serializable;
+
+import static android.arch.persistence.room.ForeignKey.CASCADE;
+
+@Entity(tableName = "card",
+        foreignKeys = @ForeignKey(entity = Deck.class,
+                parentColumns = "id",
+                childColumns  = "id_deck",
+                onDelete = CASCADE))
+public class Card implements Serializable {
+
+    @PrimaryKey(autoGenerate = true)
     private Long id;
+    @NonNull
     private String front;
+    @NonNull
     private String back;
-    private Long id_deck;
-
-    public Card() {
-    }
-
-    public Card(Long id, String front, String back, Long id_deck) {
-        this.id = id;
-        this.front = front;
-        this.back = back;
-        this.id_deck = id_deck;
-    }
-
-    public Card(String front, String back, Long id_deck) {
-        this.front = front;
-        this.back = back;
-        this.id_deck = id_deck;
-    }
+    @ColumnInfo(name = "id_deck", index = true)
+    private Long idDeck;
 
     public Long getId() {
         return id;
@@ -31,27 +34,29 @@ public class Card {
         this.id = id;
     }
 
+    @NonNull
     public String getFront() {
         return front;
     }
 
-    public void setFront(String front) {
+    public void setFront(@NonNull String front) {
         this.front = front;
     }
 
+    @NonNull
     public String getBack() {
         return back;
     }
 
-    public void setBack(String back) {
+    public void setBack(@NonNull String back) {
         this.back = back;
     }
 
-    public Long getId_deck() {
-        return id_deck;
+    public Long getIdDeck() {
+        return idDeck;
     }
 
-    public void setId_deck(Long id_deck) {
-        this.id_deck = id_deck;
+    public void setIdDeck(Long idDeck) {
+        this.idDeck = idDeck;
     }
 }

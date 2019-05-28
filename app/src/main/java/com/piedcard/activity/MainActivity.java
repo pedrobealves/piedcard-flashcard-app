@@ -28,9 +28,9 @@ import com.piedcard.activity.deck.DeckActivity;
 import com.piedcard.activity.deck.InsertDeckActivity;
 import com.piedcard.activity.pages.AboutActivity;
 import com.piedcard.adapter.DeckAdapter;
+import com.piedcard.database.DeckDatabase;
 import com.piedcard.model.Deck;
-import com.piedcard.model.dao.interfaces.DAO;
-import com.piedcard.model.singleton.DaoSingletonFactory;
+import com.piedcard.dao.DeckDAO;
 import com.piedcard.util.RecyclerItemClickListener;
 
 import java.util.ArrayList;
@@ -98,8 +98,8 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
 
-                                        DAO tarefaDAO = (DAO) DaoSingletonFactory.getDeckInstance(getApplicationContext());
-                                        if ( tarefaDAO.delete(deckSelected) ){
+                                        DeckDAO tarefaDAO = DeckDatabase.getDatabase(getApplicationContext()).DeckDAO();
+                                        if ( tarefaDAO.delete(deckSelected) > 0){
 
                                             loadDeck();
                                             Toast.makeText(getApplicationContext(),
@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
     public void loadDeck(){
 
         //Listar tarefas
-        DAO tarefaDAO = (DAO) DaoSingletonFactory.getDeckInstance(getApplicationContext());
+        DeckDAO tarefaDAO = DeckDatabase.getDatabase(getApplicationContext()).DeckDAO();
         deckList = tarefaDAO.getAll();
 
         /*

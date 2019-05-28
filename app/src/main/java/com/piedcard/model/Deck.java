@@ -1,21 +1,20 @@
 package com.piedcard.model;
 
-import java.io.Serializable;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
+import java.io.Serializable;
+@Entity(tableName = "deck")
 public class Deck implements Serializable {
 
+    @PrimaryKey(autoGenerate = true)
     private Long id;
+    @NonNull
     private String name;
+    @Ignore
     private String description;
-
-    public Deck(Long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public Deck(String name) {
-        this.name = name;
-    }
 
     public Long getId() {
         return id;
@@ -25,19 +24,21 @@ public class Deck implements Serializable {
         this.id = id;
     }
 
+    @NonNull
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(@NonNull String name) {
         this.name = name;
     }
 
+    @NonNull
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(@NonNull String description) {
         this.description = description;
     }
 }
