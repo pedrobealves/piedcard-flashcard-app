@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.piedcard.R;
+import com.piedcard.database.DeckDatabase;
 import com.piedcard.model.Card;
-import com.piedcard.model.singleton.DaoSingletonFactory;
 
 import java.util.List;
 
@@ -42,7 +42,7 @@ public class CardStudyAdapter extends RecyclerView.Adapter<CardStudyAdapter.MyVi
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
         Card card = cardList.get(position);
-        int count = DaoSingletonFactory.getCardInstance(context).count(card.getId());
+        int count = DeckDatabase.getDatabase(context).CardDAO().countByDeck(card.getId());
         holder.front.setText( card.getFront() );
         Log.i("cardStudyAdapter", card.getFront() );
 

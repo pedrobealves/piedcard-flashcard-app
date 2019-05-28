@@ -17,9 +17,10 @@ import android.widget.Toast;
 
 import com.piedcard.R;
 import com.piedcard.activity.card.InsertCardActivity;
+import com.piedcard.database.DeckDatabase;
 import com.piedcard.model.Deck;
-import com.piedcard.model.dao.interfaces.DAO;
-import com.piedcard.model.singleton.DaoSingletonFactory;
+import com.piedcard.dao.CardDAO;
+import com.piedcard.dao.DeckDAO;
 
 public class DeckActivity extends AppCompatActivity {
 
@@ -49,11 +50,11 @@ public class DeckActivity extends AppCompatActivity {
 
     public void loadDeck() {
         if ( deckActual != null ){
-            DAO deckDAO = (DAO) DaoSingletonFactory.getDeckInstance(getApplicationContext());
-            DAO cardDAO = (DAO) DaoSingletonFactory.getCardInstance(getApplicationContext());
+            DeckDAO deckDAO = DeckDatabase.getDatabase(getApplicationContext()).DeckDAO();
+            CardDAO cardDAO = DeckDatabase.getDatabase(getApplicationContext()).CardDAO();
             deckActual = (Deck) deckDAO.get(deckActual.getId());
             title.setText( deckActual.getName() );
-            countCards.setText(String.valueOf(cardDAO.count(deckActual.getId())) + " " + getString(R.string.cards));
+            countCards.setText(String.valueOf(cardDAO.countByDeck(deckActual.getId())) + " " + getString(R.string.cards));
         }
     }
 
@@ -68,7 +69,7 @@ public class DeckActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_deck, menu);
+        getMenuInflater().inflate(R.menu.menu_action, menu);
         return true;
     }
 
@@ -98,8 +99,8 @@ public class DeckActivity extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 
-                    DAO tarefaDAO =  (DAO) DaoSingletonFactory.getDeckInstance(getApplicationContext());
-                    if ( tarefaDAO.delete(deckActual) ){
+                    DeckDAO tarefaDAO =  DeckDatabase.getDatabase(getApplicationContext()).DeckDAO();
+                    if ( tarefaDAO.delete(deckActual) > 0 ){
 
                         finish();
                         Toast.makeText(getApplicationContext(),
