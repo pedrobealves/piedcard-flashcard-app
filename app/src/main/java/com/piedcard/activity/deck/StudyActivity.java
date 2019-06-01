@@ -77,7 +77,7 @@ public class StudyActivity extends AppCompatActivity {
         @Override
         public void onDestroyActionMode(ActionMode actionMode) {
             if (viewSelecionada != null){
-                viewSelecionada.setBackgroundColor(Color.TRANSPARENT);
+                viewSelecionada.setBackgroundColor(Color.WHITE);
             }
 
             viewSelecionada    = null;
@@ -154,6 +154,9 @@ public class StudyActivity extends AppCompatActivity {
 
                             @Override
                             public void onItemClick(View view, int position) {
+                                Card card = cardList.get(position);
+                                card.setFace(!card.isFace());
+                                cardAdapter.notifyDataSetChanged();
                             }
 
                             @Override
@@ -167,7 +170,6 @@ public class StudyActivity extends AppCompatActivity {
                                 recyclerView.setEnabled(false);
 
                                 actionMode = startSupportActionMode(mActionModeCallback);
-
                             }
 
 

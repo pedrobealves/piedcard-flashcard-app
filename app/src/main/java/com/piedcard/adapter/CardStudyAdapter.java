@@ -42,10 +42,8 @@ public class CardStudyAdapter extends RecyclerView.Adapter<CardStudyAdapter.MyVi
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
         Card card = cardList.get(position);
-        int count = DeckDatabase.getDatabase(context).CardDAO().countByDeck(card.getId());
-        holder.front.setText( card.getFront() );
-        Log.i("cardStudyAdapter", card.getFront() );
-
+        holder.front.setText( card.isFace() ? card.getBack() : card.getFront());
+        Log.i("cardStudyAdapter", "Front: " + card.getFront() + " Back: " + card.getBack() );
     }
 
     @Override
