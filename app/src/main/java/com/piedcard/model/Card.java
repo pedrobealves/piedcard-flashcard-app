@@ -3,6 +3,7 @@ package com.piedcard.model;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
@@ -23,6 +24,8 @@ public class Card implements Serializable {
     private String front;
     @NonNull
     private String back;
+    @Ignore
+    private boolean face;
     @ColumnInfo(name = "id_deck", index = true)
     private Long idDeck;
 
@@ -58,5 +61,13 @@ public class Card implements Serializable {
 
     public void setIdDeck(Long idDeck) {
         this.idDeck = idDeck;
+    }
+
+    public boolean isFace() {
+        return face;
+    }
+
+    public void setFace(boolean face) {
+        this.face = face;
     }
 }
