@@ -4,7 +4,6 @@
     <string name="list">LISTA</string>
     <string name="name_list">TÍTULO</string>
     <string name="title_deck">TÍTULO</string>
-    <string name="cards">cartas</string>
     <string name="edit_deck">Editar</string>
     <string name="delete_deck">Deletar</string>
     <string name="study">ESTUDAR</string>
@@ -35,4 +34,5 @@
     <string name="exists_name_list">Esse nome de lista já existe</string>
     <string name="app_sub_name">Estude com flashcards</string>
     <string name="favorites">Favoritos</string>
+    <string name="match">Combinar</string>
 </resources>

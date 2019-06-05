@@ -54,7 +54,8 @@ public class DeckActivity extends AppCompatActivity {
             CardDAO cardDAO = DeckDatabase.getDatabase(getApplicationContext()).CardDAO();
             deckActual = (Deck) deckDAO.get(deckActual.getId());
             title.setText( deckActual.getName() );
-            countCards.setText(String.valueOf(cardDAO.countByDeck(deckActual.getId())) + " " + getString(R.string.cards));
+            int count = cardDAO.countByDeck(deckActual.getId());
+            countCards.setText(getApplicationContext().getResources().getQuantityString(R.plurals.numberOfCardsAvailable,count, count));
         }
     }
 

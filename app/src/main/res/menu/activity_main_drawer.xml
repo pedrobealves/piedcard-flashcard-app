@@ -28,5 +28,12 @@
             android:icon="@drawable/ic_favorite_black_bold_24dp"
             android:title="@string/favorites"
             android:visible="true" />
+        <item
+            android:id="@+id/match"
+            android:checkable="false"
+            android:enabled="true"
+            android:icon="@drawable/ic_view_carousel_black_24dp"
+            android:title="@string/match"
+            android:visible="true" />
     </group>
 </menu>
