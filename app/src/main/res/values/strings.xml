@@ -7,7 +7,6 @@
     <string name="list">LIST</string>
     <string name="name_list">TITLE</string>
     <string name="title_deck">TITLE</string>
-    <string name="cards">cards</string>
     <string name="title_activity_deck">LIST</string>
     <string name="edit_deck">Edit</string>
     <string name="delete_deck">Delete</string>
@@ -37,4 +36,9 @@
     <string name="exists_name_list">List name already exists</string>
     <string name="app_sub_name">Study with flashcards</string>
     <string name="favorites">Favorites</string>
+    <string name="match">Match</string>
+    <plurals name="numberOfCardsAvailable">
+        <item quantity="one">%d card</item>
+        <item quantity="other">%d cards</item>
+    </plurals>
 </resources>

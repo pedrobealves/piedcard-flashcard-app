@@ -44,7 +44,7 @@ public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.MyViewHolder> 
         Deck deck = listaDecks.get(position);
         int count = DeckDatabase.getDatabase(context).CardDAO().countByDeck(deck.getId());
         holder.tarefa.setText( deck.getName() );
-        holder.countCards.setText(String.valueOf(count) + " " + context.getString(R.string.cards));
+        holder.countCards.setText(context.getResources().getQuantityString(R.plurals.numberOfCardsAvailable, count, count));
         Log.i("deckAdapter", deck.getName() );
 
     }

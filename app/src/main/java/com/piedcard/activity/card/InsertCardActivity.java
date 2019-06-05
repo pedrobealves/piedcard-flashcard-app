@@ -89,6 +89,7 @@ public class InsertCardActivity extends AppCompatActivity {
                         card.setId(cardActual.getId());
                         card.setFront(termText);
                         card.setBack(defText);
+                        card.setFavorite(cardActual.isFavorite());
                         card.setIdDeck(cardActual.getIdDeck());
 
                         //update no banco de dados

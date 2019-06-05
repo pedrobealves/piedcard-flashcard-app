@@ -43,6 +43,15 @@
                 android:value=".activity.MainActivity" />
         </activity>
         <activity
+            android:name=".activity.deck.ShuffleCardActivity"
+            android:parentActivityName=".activity.MainActivity"
+            android:label="@string/match"
+            >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.MainActivity" />
+        </activity>
+        <activity
             android:name=".activity.deck.DeckActivity"
             android:label="@string/title_activity_deck"
             android:launchMode="singleTop"
