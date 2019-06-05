@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.piedcard.R;
 import com.piedcard.activity.deck.DeckActivity;
+import com.piedcard.activity.deck.FavoriteActivity;
 import com.piedcard.activity.deck.InsertDeckActivity;
 import com.piedcard.activity.pages.AboutActivity;
 import com.piedcard.adapter.DeckAdapter;
@@ -214,6 +215,11 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
 
         if(id == R.id.about){
             Intent intent = new Intent(MainActivity.this, AboutActivity.class);
+            startActivity( intent );
+        }
+
+        if(id == R.id.fav){
+            Intent intent = new Intent(MainActivity.this, FavoriteActivity.class);
             startActivity( intent );
         }
 
