@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "ce42a65577d75e3a5a0cf8b58ae60c74",
+    "identityHash": "98cdd025cd91282a8ad66eb98c16c6b2",
     "entities": [
       {
         "tableName": "deck",
@@ -32,7 +32,7 @@
       },
       {
         "tableName": "card",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `front` TEXT NOT NULL, `back` TEXT NOT NULL, `id_deck` INTEGER, FOREIGN KEY(`id_deck`) REFERENCES `deck`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `front` TEXT NOT NULL, `back` TEXT NOT NULL, `favorite` INTEGER NOT NULL, `id_deck` INTEGER, FOREIGN KEY(`id_deck`) REFERENCES `deck`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
@@ -50,6 +50,12 @@
             "fieldPath": "back",
             "columnName": "back",
             "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "favorite",
+            "columnName": "favorite",
+            "affinity": "INTEGER",
             "notNull": true
           },
           {
@@ -92,7 +98,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"ce42a65577d75e3a5a0cf8b58ae60c74\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"98cdd025cd91282a8ad66eb98c16c6b2\")"
     ]
   }
 }

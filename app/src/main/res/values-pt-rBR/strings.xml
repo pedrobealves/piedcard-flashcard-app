@@ -34,4 +34,5 @@
     <string name="empty_name_list">Entre com um nome para lista</string>
     <string name="exists_name_list">Esse nome de lista já existe</string>
     <string name="app_sub_name">Estude com flashcards</string>
+    <string name="favorites">Favoritos</string>
 </resources>

@@ -24,6 +24,7 @@ public class Card implements Serializable {
     private String front;
     @NonNull
     private String back;
+    private boolean favorite;
     @Ignore
     private boolean face;
     @ColumnInfo(name = "id_deck", index = true)
@@ -69,5 +70,13 @@ public class Card implements Serializable {
 
     public void setFace(boolean face) {
         this.face = face;
+    }
+
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
     }
 }

@@ -21,5 +21,12 @@
             android:icon="@drawable/ic_info_black_24dp"
             android:title="@string/about"
             android:visible="true" />
+        <item
+            android:id="@+id/fav"
+            android:checkable="false"
+            android:enabled="true"
+            android:icon="@drawable/ic_favorite_black_bold_24dp"
+            android:title="@string/favorites"
+            android:visible="true" />
     </group>
 </menu>

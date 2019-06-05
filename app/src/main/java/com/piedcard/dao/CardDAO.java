@@ -19,6 +19,9 @@ public interface CardDAO extends DAO<Card> {
     @Query("SELECT * FROM card WHERE id_deck = :id")
     List<Card> getAllByDeck(long id);
 
+    @Query("SELECT * FROM card WHERE favorite")
+    List<Card> getAllFavorite();
+
     @Query("SELECT count(*) FROM card WHERE id_deck = :id")
     int countByDeck(long id);
 

@@ -3,9 +3,9 @@ package com.piedcard.activity.deck;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,26 +13,23 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.piedcard.R;
 import com.piedcard.activity.card.InsertCardActivity;
 import com.piedcard.adapter.CardStudyAdapter;
+import com.piedcard.dao.CardDAO;
 import com.piedcard.database.DeckDatabase;
 import com.piedcard.model.Card;
 import com.piedcard.model.Deck;
-import com.piedcard.dao.CardDAO;
-import com.piedcard.util.RecyclerItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class StudyActivity extends AppCompatActivity {
+public class FavoriteActivity extends AppCompatActivity {
 
     private List<Card> cardList = new ArrayList<>();
-    private Deck deckActual;
     private CardStudyAdapter cardAdapter;
     private RecyclerView recyclerView;
     private TextView title;
@@ -91,12 +88,10 @@ public class StudyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_study);
         front = findViewById(R.id.textFront);
-
-        deckActual = (Deck) getIntent().getSerializableExtra("deckSelected");
     }
 
     private void deleteCard() {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(StudyActivity.this);
+        AlertDialog.Builder dialog = new AlertDialog.Builder(FavoriteActivity.this);
 
         //Configura título e mensagem
         dialog.setTitle(R.string.confirm_delete);
@@ -133,7 +128,7 @@ public class StudyActivity extends AppCompatActivity {
 
     private void editCard() {
         Card card = cardList.get(posicaoSelecionada);
-        Intent intent = new Intent(StudyActivity.this, InsertCardActivity.class);
+        Intent intent = new Intent(FavoriteActivity.this, InsertCardActivity.class);
         intent.putExtra("cardSelected", card);
         startActivity( intent );
     }
@@ -143,7 +138,7 @@ public class StudyActivity extends AppCompatActivity {
 
         //Listar tarefas
         CardDAO tarefaDAO = DeckDatabase.getDatabase(getApplicationContext()).CardDAO();
-        cardList = tarefaDAO.getAllByDeck(deckActual.getId());
+        cardList = tarefaDAO.getAllFavorite();
 
         /*
             Exibe lista de DECK no Recyclerview
